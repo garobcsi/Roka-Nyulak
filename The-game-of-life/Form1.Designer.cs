@@ -44,6 +44,9 @@ namespace The_game_of_life
             this.pbGrid.Size = new System.Drawing.Size(1279, 591);
             this.pbGrid.TabIndex = 0;
             this.pbGrid.TabStop = false;
+            this.pbGrid.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbGrid_MouseDown);
+            this.pbGrid.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbGrid_MouseMove);
+            this.pbGrid.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbGrid_MouseUp);
             // 
             // btRun
             // 
