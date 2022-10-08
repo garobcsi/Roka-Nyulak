@@ -56,7 +56,7 @@ namespace The_game_of_life
 
         private void btReset_Click(object sender, EventArgs e)
         {
-
+            pb.DrawGrid(ref pbGrid);
         }
         #endregion
         #region DrawPictureBox
@@ -78,7 +78,7 @@ namespace The_game_of_life
                 int y = index_y * 16 - 16;
                 
                 if (!(x < 0 || y <0 || x > pbGrid.Width || y > pbGrid.Height)) // if not outside of canvas
-                {
+                {                 
                     pb.DrawRectangle(ref pbGrid,new Point(x,y));
                 }
                 pbGrid.Invalidate();
