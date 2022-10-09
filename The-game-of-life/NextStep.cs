@@ -16,7 +16,7 @@ namespace The_game_of_life
         {
 
         }
-        void Continouosnext()
+        void ContinouosNext()
         {
 
         }
