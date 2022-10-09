@@ -61,6 +61,7 @@ namespace The_game_of_life
             pb.DrawGrid(ref pbGrid);
         }
         private bool btDrawState = false;
+        private bool[] btDrawKeepState = { true, false };
         private void btDraw_Click(object sender, EventArgs e)
         {
             if (btDrawState == false)
@@ -69,10 +70,14 @@ namespace The_game_of_life
                 btRun.Font = new Font(btRun.Font, FontStyle.Regular);
                 btStep.Enabled = false;
                 btReset.Enabled = false;
+
+                //Animal and Grass
                 btAnimalOrGrass.Visible = true;
-                btAnimal.Visible = true;
-                laAnimal.Visible = true;
-                laSelect.Visible = true;
+                laAnimalOrGrass.Visible = true;
+                btAnimal.Visible = btDrawKeepState[0];
+                laAnimal.Visible = btDrawKeepState[0];
+                btGrass.Visible = btDrawKeepState[1];
+                laGrass.Visible = btDrawKeepState[1];
 
                 btDrawState = true;
             }
@@ -82,10 +87,15 @@ namespace The_game_of_life
                 btRun.Font = new Font(btRun.Font, FontStyle.Bold);
                 btStep.Enabled = true;
                 btReset.Enabled = true;
+
+                //Animal and Grass
                 btAnimalOrGrass.Visible = false;
+                laAnimalOrGrass.Visible = false;
+                btDrawKeepState = new bool [] {btAnimal.Visible,btGrass.Visible };
                 btAnimal.Visible = false;
                 laAnimal.Visible = false;
-                laSelect.Visible = false;
+                btGrass.Visible = false;
+                laGrass.Visible = false;
 
                 btDrawState = false;
             }

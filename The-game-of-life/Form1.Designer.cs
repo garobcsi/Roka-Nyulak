@@ -39,7 +39,7 @@ namespace The_game_of_life
             this.btGrass = new System.Windows.Forms.Button();
             this.laAnimal = new System.Windows.Forms.Label();
             this.laGrass = new System.Windows.Forms.Label();
-            this.laSelect = new System.Windows.Forms.Label();
+            this.laAnimalOrGrass = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -156,22 +156,22 @@ namespace The_game_of_life
             this.laGrass.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.laGrass.Visible = false;
             // 
-            // laSelect
+            // laAnimalOrGrass
             // 
-            this.laSelect.AutoSize = true;
-            this.laSelect.Location = new System.Drawing.Point(354, 5);
-            this.laSelect.Name = "laSelect";
-            this.laSelect.Size = new System.Drawing.Size(37, 13);
-            this.laSelect.TabIndex = 12;
-            this.laSelect.Text = "Select";
-            this.laSelect.Visible = false;
+            this.laAnimalOrGrass.AutoSize = true;
+            this.laAnimalOrGrass.Location = new System.Drawing.Point(354, 5);
+            this.laAnimalOrGrass.Name = "laAnimalOrGrass";
+            this.laAnimalOrGrass.Size = new System.Drawing.Size(37, 13);
+            this.laAnimalOrGrass.TabIndex = 12;
+            this.laAnimalOrGrass.Text = "Select";
+            this.laAnimalOrGrass.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1279, 676);
-            this.Controls.Add(this.laSelect);
+            this.Controls.Add(this.laAnimalOrGrass);
             this.Controls.Add(this.laGrass);
             this.Controls.Add(this.laAnimal);
             this.Controls.Add(this.btGrass);
@@ -205,7 +205,7 @@ namespace The_game_of_life
         private System.Windows.Forms.Button btGrass;
         private System.Windows.Forms.Label laAnimal;
         private System.Windows.Forms.Label laGrass;
-        private System.Windows.Forms.Label laSelect;
+        private System.Windows.Forms.Label laAnimalOrGrass;
     }
 }
 
