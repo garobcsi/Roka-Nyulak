@@ -16,7 +16,7 @@ namespace The_game_of_life
         public void DrawGrid(ref PictureBox pbGrid)
         {
             g.Clear(Color.Black);
-            SetSBColor(Color.White);
+            SetSBColor(ColorsGrass.Start);
             for (int i = 0; i < pbGrid.Width; i += 15)
             {
                 for (int j = 0; j < pbGrid.Height; j += 15)
@@ -31,8 +31,13 @@ namespace The_game_of_life
         }
         public void DrawRectangle(ref PictureBox pbGrid,Point Cords)
         {
-            g.FillRectangle(sb, new Rectangle(Cords.X, Cords.Y, 15, 15));
-            pbGrid.Image = (Bitmap)bmp;
+            int x = Cords.X * 16 - 16;
+            int y = Cords.Y * 16 - 16;
+            if (!(x < 0 || y < 0 || x > pbGrid.Width || y > pbGrid.Height)) // if not outside of canvas
+            {
+                g.FillRectangle(sb, new Rectangle(x,y, 15, 15));
+                pbGrid.Image = (Bitmap)bmp;
+            }
         }
         public void SetSBColor(Color SolidBrushColor)
         {
@@ -40,7 +45,7 @@ namespace The_game_of_life
         }
         public void DrawMatrix(ref PictureBox pbGrid)
         {
-
+            
         }
         public DrawPictureBox(PictureBox pbGrid) //init
         {

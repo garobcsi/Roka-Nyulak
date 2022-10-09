@@ -21,33 +21,35 @@ namespace The_game_of_life
         private void Form1_Load(object sender, EventArgs e)
         {
             pb = new DrawPictureBox(pbGrid); //init
+            btAnimal.BackColor = ColorsAnimal.Fox;
+            btGrass.BackColor = ColorsGrass.Start;
             pb.DrawGrid(ref pbGrid);
         }
         #region FormElements
         private void btRun_Click(object sender, EventArgs e)
         {
-            btRun.BackColor = btRun.BackColor == Color.Green ? Color.Red : Color.Green;
-            btRun.Text = btRun.Text == "START" ? "STOP" : "START";
-            btStep.Enabled = btRun.BackColor == Color.Green ? true : false;
-            btReset.Enabled = btRun.BackColor == Color.Green ? true : false;
-            btDraw.Enabled = btRun.BackColor == Color.Green ? true : false;
-        }
-        private bool btDrawState = false;
-        private void btDraw_Click(object sender, EventArgs e)
-        {
-            btDrawState = btDrawState == false ? true : false;
-            btColor.Visible = btDrawState == false ? false : true;
-            laColor.Visible = btDrawState == false ? false : true;
-            btRun.Enabled = btDrawState == false ? true : false;
-            btRun.Font = btDrawState == false ? new Font(btRun.Font, FontStyle.Bold) : new Font(btRun.Font, FontStyle.Regular);
-            btStep.Enabled = btDrawState == false ? true : false;
-            btReset.Enabled = btDrawState == false ? true : false;
-        }
-        private void btColor_Click(object sender, EventArgs e)
-        {
-            btColor.BackColor = btColor.BackColor == Color.Black ? Color.White : Color.Black;
-            btColor.ForeColor = btColor.ForeColor == Color.White ? Color.Black : Color.White;
-            btColor.Text = btColor.Text == "Black" ? "White" : "Black";
+            if (btDraw.Enabled)
+            {
+                btRun.BackColor = Color.Red;
+                btRun.Text = "STOP";
+                btStep.Enabled = false;
+                btReset.Enabled = false;
+                btDraw.Enabled = false;
+                btAnimalOrGrass.Enabled = false;
+                btAnimal.Enabled = false;
+                btGrass.Enabled = false;
+            }
+            else
+            {
+                btRun.BackColor = Color.Green;
+                btRun.Text = "START";
+                btStep.Enabled = true;
+                btReset.Enabled = true;
+                btDraw.Enabled = true;
+                btAnimalOrGrass.Enabled = true;
+                btAnimal.Enabled = true;
+                btGrass.Enabled = true;
+            }
         }
         private void btStep_Click(object sender, EventArgs e)
         {
@@ -58,12 +60,59 @@ namespace The_game_of_life
         {
             pb.DrawGrid(ref pbGrid);
         }
+        private bool btDrawState = false;
+        private void btDraw_Click(object sender, EventArgs e)
+        {
+            if (btDrawState == false)
+            {
+                btRun.Enabled = false;
+                btRun.Font = new Font(btRun.Font, FontStyle.Regular);
+                btStep.Enabled = false;
+                btReset.Enabled = false;
+                btAnimalOrGrass.Visible = true;
+                btAnimal.Visible = true;
+                laAnimal.Visible = true;
+                laSelect.Visible = true;
+
+                btDrawState = true;
+            }
+            else
+            {
+                btRun.Enabled = true;
+                btRun.Font = new Font(btRun.Font, FontStyle.Bold);
+                btStep.Enabled = true;
+                btReset.Enabled = true;
+                btAnimalOrGrass.Visible = false;
+                btAnimal.Visible = false;
+                laAnimal.Visible = false;
+                laSelect.Visible = false;
+
+                btDrawState = false;
+            }
+        }
+        private void btAnimalOrGrass_Click(object sender, EventArgs e)
+        {
+            (btAnimal.Visible,btGrass.Visible) = (btGrass.Visible,btAnimal.Visible);
+            (laAnimal.Visible,laGrass.Visible) = (laGrass.Visible,laAnimal.Visible);
+            btAnimalOrGrass.Text = btAnimalOrGrass.Text == "Animal" ? "Grass" : "Animal";
+        }
+        private void btAnimal_Click(object sender, EventArgs e)
+        {
+            btAnimal.BackColor = btAnimal.BackColor == ColorsAnimal.Fox ? ColorsAnimal.Bunny : ColorsAnimal.Fox;
+            btAnimal.Text = btAnimal.Text == "Fox" ? "Bunny" : "Fox";
+        }
+        private void btGrass_Click(object sender, EventArgs e)
+        {
+            btGrass.BackColor = btGrass.BackColor == ColorsGrass.Mid ? ColorsGrass.End : btGrass.BackColor == ColorsGrass.End ? ColorsGrass.Start : ColorsGrass.Mid;
+            btGrass.Text = btGrass.Text == "Zsenge fű" ? "Kifejlett fűcsomó" : btGrass.Text == "Kifejlett fűcsomó" ? "Fűkezdemnény" : "Zsenge fű";
+        }
         #endregion
         #region DrawPictureBox
         private Point? _Previous = null;
         private void pbGrid_MouseDown(object sender, MouseEventArgs e)
         {
-            pb.SetSBColor(btColor.BackColor);
+            
+            pb.SetSBColor(btAnimalOrGrass.Text != "Animal"?btAnimal.BackColor:btGrass.BackColor);
             _Previous = e.Location;
             pbGrid_MouseMove(sender, e);
         }
@@ -74,24 +123,15 @@ namespace The_game_of_life
             {
                 int index_x = (int)Math.Ceiling((double)e.X / (double)16); //indexes for adding data to matrix
                 int index_y = (int)Math.Ceiling((double)e.Y / (double)16);
-                int x = index_x * 16 - 16;
-                int y = index_y * 16 - 16;
-                
-                if (!(x < 0 || y <0 || x > pbGrid.Width || y > pbGrid.Height)) // if not outside of canvas
-                {                 
-                    pb.DrawRectangle(ref pbGrid,new Point(x,y));
-                }
+                pb.DrawRectangle(ref pbGrid,new Point(index_x,index_y));
                 pbGrid.Invalidate();
                 _Previous = e.Location;
             }
         }
-
         private void pbGrid_MouseUp(object sender, MouseEventArgs e)
         {
             _Previous = null;
         }
         #endregion
-
-        
     }
 }

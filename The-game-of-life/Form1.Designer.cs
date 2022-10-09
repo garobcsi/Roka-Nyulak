@@ -34,8 +34,12 @@ namespace The_game_of_life
             this.btStep = new System.Windows.Forms.Button();
             this.btReset = new System.Windows.Forms.Button();
             this.btDraw = new System.Windows.Forms.Button();
-            this.btColor = new System.Windows.Forms.Button();
-            this.laColor = new System.Windows.Forms.Label();
+            this.btAnimalOrGrass = new System.Windows.Forms.Button();
+            this.btAnimal = new System.Windows.Forms.Button();
+            this.btGrass = new System.Windows.Forms.Button();
+            this.laAnimal = new System.Windows.Forms.Label();
+            this.laGrass = new System.Windows.Forms.Label();
+            this.laSelect = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,65 +68,115 @@ namespace The_game_of_life
             // 
             // btStep
             // 
+            this.btStep.BackColor = System.Drawing.SystemColors.Control;
             this.btStep.Location = new System.Drawing.Point(93, 21);
             this.btStep.Name = "btStep";
             this.btStep.Size = new System.Drawing.Size(75, 43);
             this.btStep.TabIndex = 2;
             this.btStep.Text = "Step";
-            this.btStep.UseVisualStyleBackColor = true;
+            this.btStep.UseVisualStyleBackColor = false;
             this.btStep.Click += new System.EventHandler(this.btStep_Click);
             // 
             // btReset
             // 
+            this.btReset.BackColor = System.Drawing.SystemColors.Control;
             this.btReset.Location = new System.Drawing.Point(174, 21);
             this.btReset.Name = "btReset";
             this.btReset.Size = new System.Drawing.Size(75, 43);
             this.btReset.TabIndex = 3;
             this.btReset.Text = "Reset";
-            this.btReset.UseVisualStyleBackColor = true;
+            this.btReset.UseVisualStyleBackColor = false;
             this.btReset.Click += new System.EventHandler(this.btReset_Click);
             // 
             // btDraw
             // 
+            this.btDraw.BackColor = System.Drawing.SystemColors.Control;
             this.btDraw.Location = new System.Drawing.Point(255, 21);
             this.btDraw.Name = "btDraw";
             this.btDraw.Size = new System.Drawing.Size(75, 43);
             this.btDraw.TabIndex = 4;
             this.btDraw.Text = "Draw";
-            this.btDraw.UseVisualStyleBackColor = true;
+            this.btDraw.UseVisualStyleBackColor = false;
             this.btDraw.Click += new System.EventHandler(this.btDraw_Click);
             // 
-            // btColor
+            // btAnimalOrGrass
             // 
-            this.btColor.BackColor = System.Drawing.Color.Black;
-            this.btColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btColor.ForeColor = System.Drawing.Color.White;
-            this.btColor.Location = new System.Drawing.Point(336, 21);
-            this.btColor.Name = "btColor";
-            this.btColor.Size = new System.Drawing.Size(75, 43);
-            this.btColor.TabIndex = 5;
-            this.btColor.Text = "Black";
-            this.btColor.UseVisualStyleBackColor = false;
-            this.btColor.Visible = false;
-            this.btColor.Click += new System.EventHandler(this.btColor_Click);
+            this.btAnimalOrGrass.Location = new System.Drawing.Point(336, 21);
+            this.btAnimalOrGrass.Name = "btAnimalOrGrass";
+            this.btAnimalOrGrass.Size = new System.Drawing.Size(75, 43);
+            this.btAnimalOrGrass.TabIndex = 7;
+            this.btAnimalOrGrass.Text = "Grass";
+            this.btAnimalOrGrass.UseVisualStyleBackColor = false;
+            this.btAnimalOrGrass.Visible = false;
+            this.btAnimalOrGrass.Click += new System.EventHandler(this.btAnimalOrGrass_Click);
             // 
-            // laColor
+            // btAnimal
             // 
-            this.laColor.AutoSize = true;
-            this.laColor.Location = new System.Drawing.Point(338, 5);
-            this.laColor.Name = "laColor";
-            this.laColor.Size = new System.Drawing.Size(73, 13);
-            this.laColor.TabIndex = 6;
-            this.laColor.Text = "Drawing Color";
-            this.laColor.Visible = false;
+            this.btAnimal.BackColor = System.Drawing.SystemColors.Control;
+            this.btAnimal.Location = new System.Drawing.Point(417, 21);
+            this.btAnimal.Name = "btAnimal";
+            this.btAnimal.Size = new System.Drawing.Size(94, 43);
+            this.btAnimal.TabIndex = 8;
+            this.btAnimal.Text = "Fox";
+            this.btAnimal.UseVisualStyleBackColor = false;
+            this.btAnimal.Visible = false;
+            this.btAnimal.Click += new System.EventHandler(this.btAnimal_Click);
+            // 
+            // btGrass
+            // 
+            this.btGrass.BackColor = System.Drawing.SystemColors.Control;
+            this.btGrass.Location = new System.Drawing.Point(417, 21);
+            this.btGrass.Name = "btGrass";
+            this.btGrass.Size = new System.Drawing.Size(94, 43);
+            this.btGrass.TabIndex = 9;
+            this.btGrass.Text = "Fűkezdemnény";
+            this.btGrass.UseVisualStyleBackColor = false;
+            this.btGrass.Visible = false;
+            this.btGrass.Click += new System.EventHandler(this.btGrass_Click);
+            // 
+            // laAnimal
+            // 
+            this.laAnimal.Location = new System.Drawing.Point(414, 5);
+            this.laAnimal.Name = "laAnimal";
+            this.laAnimal.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.laAnimal.Size = new System.Drawing.Size(97, 13);
+            this.laAnimal.TabIndex = 10;
+            this.laAnimal.Text = "Animal";
+            this.laAnimal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.laAnimal.Visible = false;
+            // 
+            // laGrass
+            // 
+            this.laGrass.Location = new System.Drawing.Point(414, 5);
+            this.laGrass.Name = "laGrass";
+            this.laGrass.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.laGrass.Size = new System.Drawing.Size(97, 13);
+            this.laGrass.TabIndex = 11;
+            this.laGrass.Text = "Grass";
+            this.laGrass.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.laGrass.Visible = false;
+            // 
+            // laSelect
+            // 
+            this.laSelect.AutoSize = true;
+            this.laSelect.Location = new System.Drawing.Point(354, 5);
+            this.laSelect.Name = "laSelect";
+            this.laSelect.Size = new System.Drawing.Size(37, 13);
+            this.laSelect.TabIndex = 12;
+            this.laSelect.Text = "Select";
+            this.laSelect.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1279, 676);
-            this.Controls.Add(this.laColor);
-            this.Controls.Add(this.btColor);
+            this.Controls.Add(this.laSelect);
+            this.Controls.Add(this.laGrass);
+            this.Controls.Add(this.laAnimal);
+            this.Controls.Add(this.btGrass);
+            this.Controls.Add(this.btAnimal);
+            this.Controls.Add(this.btAnimalOrGrass);
             this.Controls.Add(this.btDraw);
             this.Controls.Add(this.btReset);
             this.Controls.Add(this.btStep);
@@ -146,8 +200,12 @@ namespace The_game_of_life
         private System.Windows.Forms.Button btStep;
         private System.Windows.Forms.Button btReset;
         private System.Windows.Forms.Button btDraw;
-        private System.Windows.Forms.Button btColor;
-        private System.Windows.Forms.Label laColor;
+        private System.Windows.Forms.Button btAnimalOrGrass;
+        private System.Windows.Forms.Button btAnimal;
+        private System.Windows.Forms.Button btGrass;
+        private System.Windows.Forms.Label laAnimal;
+        private System.Windows.Forms.Label laGrass;
+        private System.Windows.Forms.Label laSelect;
     }
 }
 
