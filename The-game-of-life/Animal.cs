@@ -9,12 +9,12 @@ namespace The_game_of_life
 {
     class Animal
     {
-        public int[,] AnimalMatrix { get; set; }
-        enum AnimalType
+        //public int[,] AnimalMatrix { get; set; }
+        enum Type
         {
             Fox,
             Bunny
         }
-        public Point AnimalCords { get; set; } = new Point();
+        public Point Cords { get; set; } = new Point();
     }
 }

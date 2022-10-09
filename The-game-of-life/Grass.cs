@@ -9,13 +9,13 @@ namespace The_game_of_life
 {
     class Grass
     {
-        public int[,] GrassMatrix { get; set; }
-        enum GrassType
+        //public int[,] GrassMatrix { get; set; }
+        enum Type
         {
             GrassStart,
             GrassMid,
             GrassEnd
         }
-        public Point GrassCords { get; set; } = new Point();
+        public Point Cords { get; set; } = new Point();
     }
 }
