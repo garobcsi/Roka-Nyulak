@@ -10,10 +10,10 @@ namespace The_game_of_life
     class Animal
     {
         //public int[,] AnimalMatrix { get; set; }
-        enum Type
+        enum Type: byte //Tápérték szintje az állatoknak
         {
-            Fox,
-            Bunny
+            Fox = 0,
+            Bunny = 3
         }
         public Point Cords { get; set; } = new Point();
     }

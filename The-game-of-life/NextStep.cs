@@ -14,7 +14,7 @@ namespace The_game_of_life
 
         void Next()
         {
-
+            
         }
         void ContinouosNext()
         {
