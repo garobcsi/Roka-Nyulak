@@ -18,7 +18,7 @@ namespace The_game_of_life
         }
         void ContinouosNext()
         {
-
+            Task.Delay(1000).ContinueWith(t => Next()); //1 second
         }
         public NextStep()
         {
