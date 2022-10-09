@@ -55,6 +55,7 @@
     <Compile Include="Colors.cs" />
     <Compile Include="AnimalOrGrass.cs" />
     <Compile Include="DrawPictureBox.cs" />
+    <Compile Include="Grass.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
