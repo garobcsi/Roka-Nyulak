@@ -134,33 +134,38 @@ namespace The_game_of_life
             if (_Previous != null && btDrawState)
             {
                 Point index = new Point((int)Math.Ceiling((double)e.X / (double)16), (int)Math.Ceiling((double)e.Y / (double)16)); //indexes for adding data to matrix
-                pb.DrawRectangle(ref pbGrid,index);
-                if (btAnimalOrGrass.Text != "Animal")
-                {
-                    if (btAnimal.Text == "Fox")
+                int x = index.X * 16 - 16;
+                int y = index.Y * 16 - 16;
+                if (!(x < 0 || y < 0 || x > pbGrid.Width || y > pbGrid.Height)) // if not outside of canvas
+                { 
+                    pb.DrawRectangle(ref pbGrid,index);
+                    if (btAnimalOrGrass.Text != "Animal")
                     {
-                        ns.animal[index.X, index.Y] = new Animal(1,index,10);
+                        if (btAnimal.Text == "Fox")
+                        {
+                            ns.animal[index.X - 1, index.Y - 1] = new Animal(1,index,10);
+                        }
+                        else
+                        {
+                            ns.animal[index.X - 1, index.Y - 1] = new Animal(2, index, 5);
+                        }
                     }
                     else
                     {
-                        ns.animal[index.X, index.Y] = new Animal(2, index, 5);
-                    }
-                }
-                else
-                {
-                    if (btGrass.Text == "Fűkezdemnény")
-                    {
-                        ns.grass[index.X, index.Y] = new Grass(0, index);
-                    }
-                    else if (btGrass.Text == "Zsenge fű")
-                    {
-                        ns.grass[index.X, index.Y] = new Grass(1, index);
-                    }
-                    else
-                    {
-                        ns.grass[index.X, index.Y] = new Grass(2, index);
-                    }
+                        if (btGrass.Text == "Fűkezdemnény")
+                        {
+                            ns.grass[index.X - 1, index.Y - 1] = new Grass(0, index);
+                        }
+                        else if (btGrass.Text == "Zsenge fű")
+                        {
+                            ns.grass[index.X - 1, index.Y - 1] = new Grass(1, index);
+                        }
+                        else
+                        {
+                            ns.grass[index.X - 1, index.Y - 1] = new Grass(2, index);
+                        }
 
+                    }
                 }
                 pbGrid.Invalidate();
                 _Previous = e.Location;
