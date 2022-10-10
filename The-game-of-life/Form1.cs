@@ -13,6 +13,7 @@ namespace The_game_of_life
     public partial class Form1 : Form
     {
         public DrawPictureBox pb;
+        public NextStep ns;
         public Form1()
         {
             InitializeComponent();
@@ -21,6 +22,7 @@ namespace The_game_of_life
         private void Form1_Load(object sender, EventArgs e)
         {
             pb = new DrawPictureBox(pbGrid); //init
+            ns = new NextStep();
             btAnimal.BackColor = ColorsAnimal.Fox;
             btGrass.BackColor = ColorsGrass.Start;
             pb.DrawGrid(ref pbGrid);
@@ -53,12 +55,13 @@ namespace The_game_of_life
         }
         private void btStep_Click(object sender, EventArgs e)
         {
-
+            ns.Next();
         }
 
         private void btReset_Click(object sender, EventArgs e)
         {
             pb.DrawGrid(ref pbGrid);
+            ns = new NextStep();
         }
         private bool btDrawState = false;
         private bool[] btDrawKeepState = { true, false };
@@ -121,7 +124,6 @@ namespace The_game_of_life
         private Point? _Previous = null;
         private void pbGrid_MouseDown(object sender, MouseEventArgs e)
         {
-            
             pb.SetSBColor(btAnimalOrGrass.Text != "Animal"?btAnimal.BackColor:btGrass.BackColor);
             _Previous = e.Location;
             pbGrid_MouseMove(sender, e);
@@ -131,9 +133,35 @@ namespace The_game_of_life
         {
             if (_Previous != null && btDrawState)
             {
-                int index_x = (int)Math.Ceiling((double)e.X / (double)16); //indexes for adding data to matrix
-                int index_y = (int)Math.Ceiling((double)e.Y / (double)16);
-                pb.DrawRectangle(ref pbGrid,new Point(index_x,index_y));
+                Point index = new Point((int)Math.Ceiling((double)e.X / (double)16), (int)Math.Ceiling((double)e.Y / (double)16)); //indexes for adding data to matrix
+                pb.DrawRectangle(ref pbGrid,index);
+                if (btAnimalOrGrass.Text != "Animal")
+                {
+                    if (btAnimal.Text == "Fox")
+                    {
+                        ns.animal[index.X, index.Y] = new Animal(1,index,10);
+                    }
+                    else
+                    {
+                        ns.animal[index.X, index.Y] = new Animal(2, index, 5);
+                    }
+                }
+                else
+                {
+                    if (btGrass.Text == "Fűkezdemnény")
+                    {
+                        ns.grass[index.X, index.Y] = new Grass(0, index);
+                    }
+                    else if (btGrass.Text == "Zsenge fű")
+                    {
+                        ns.grass[index.X, index.Y] = new Grass(1, index);
+                    }
+                    else
+                    {
+                        ns.grass[index.X, index.Y] = new Grass(2, index);
+                    }
+
+                }
                 pbGrid.Invalidate();
                 _Previous = e.Location;
             }
