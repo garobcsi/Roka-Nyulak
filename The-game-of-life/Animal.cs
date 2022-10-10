@@ -70,12 +70,17 @@ namespace The_game_of_life
                 }
             }
         }
-        public Animal (byte type,Point cords,byte hunger)
+        public Animal()
+        {
+            this.Type = 0;
+            this.Hunger = 0;
+            this.Cords = new Point();
+        }
+        public Animal (byte type,byte hunger, Point cords)
         {
             this.Type = type;
-            this.Cords = cords;
             this.Hunger = hunger;
-
+            this.Cords = cords;
         }
     }
 }

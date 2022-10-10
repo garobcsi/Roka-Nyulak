@@ -143,17 +143,17 @@ namespace The_game_of_life
                 return;
             }
             //Drawing to PictureBox
-            pb.DrawRectangle(ref pbGrid,index);
+            pb.DrawRectangleWrite(ref pbGrid,index);
             //Adding to matrixes
             if (btAnimalOrGrass.Text != "Animal") // Its Animal
             {
                 if (btAnimal.Text == "Fox")
                 {
-                    ns.animal[index.X - 1, index.Y - 1] = new Animal(1,index,10);
+                    ns.animal[index.X - 1, index.Y - 1] = new Animal(1,10,index);
                 }
                 else
                 {
-                    ns.animal[index.X - 1, index.Y - 1] = new Animal(2, index, 5);
+                    ns.animal[index.X - 1, index.Y - 1] = new Animal(2, 5, index);
                 }
             }
             else // Its Grass
@@ -161,14 +161,17 @@ namespace The_game_of_life
                 if (btGrass.Text == "Fűkezdemnény")
                 {
                     ns.grass[index.X - 1, index.Y - 1] = new Grass(0, index);
+                    ns.animal[index.X - 1, index.Y - 1] = new Animal();
                 }
                 else if (btGrass.Text == "Zsenge fű")
                 {
                     ns.grass[index.X - 1, index.Y - 1] = new Grass(1, index);
+                    ns.animal[index.X - 1, index.Y - 1] = new Animal();
                 }
                 else
                 {
                     ns.grass[index.X - 1, index.Y - 1] = new Grass(2, index);
+                    ns.animal[index.X - 1, index.Y - 1] = new Animal();
                 }
             }
             pbGrid.Invalidate();

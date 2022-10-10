@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace The_game_of_life
 {
@@ -14,7 +15,7 @@ namespace The_game_of_life
         public Grass[,] grass;
         public void Next()
         {
-            
+
         }
         public void ContinouosNext()
         {
@@ -28,8 +29,16 @@ namespace The_game_of_life
         }
         public NextStep() //init
         {
-            animal = new Animal[80,37];
-            grass = new Grass[80,37];
-        } 
+            animal = new Animal[MatrixSize.Width, MatrixSize.Height];
+            grass = new Grass[MatrixSize.Width, MatrixSize.Height];
+            for (int i = 0; i < MatrixSize.Width; i++)
+            {
+                for (int j = 0; j < MatrixSize.Height; j++)
+                {
+                    animal[i, j] = new Animal();
+                    grass[i, j] = new Grass();
+                }
+            }
+        }        
     }
 }

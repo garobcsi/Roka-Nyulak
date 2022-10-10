@@ -29,7 +29,7 @@ namespace The_game_of_life
             }
             pbGrid.Image = (Bitmap)bmp;
         }
-        public void DrawRectangle(ref PictureBox pbGrid,Point Cords)
+        public void DrawRectangleWrite(ref PictureBox pbGrid,Point Cords)
         {
             int x = Cords.X * 16 - 16;
             int y = Cords.Y * 16 - 16;
@@ -39,13 +39,58 @@ namespace The_game_of_life
                 pbGrid.Image = (Bitmap)bmp;
             }
         }
+        public void DrawRectangle(ref PictureBox pbGrid, Point Cords)
+        {
+            int x = Cords.X * 16 - 16;
+            int y = Cords.Y * 16 - 16;
+            if (!(x < 0 || y < 0 || x > pbGrid.Width || y > pbGrid.Height)) // if not outside of canvas
+            {
+                g.FillRectangle(sb, new Rectangle(x, y, 15, 15));
+            }
+        }
         public void SetSBColor(Color SolidBrushColor)
         {
             sb = new SolidBrush(SolidBrushColor);
         }
-        public void DrawMatrix(ref PictureBox pbGrid)
+        public void DrawMatrix(ref PictureBox pbGrid,Animal[,] animal,Grass[,] grass)
         {
-            
+            for (int i = 0; i < MatrixSize.Width; i++)
+            {
+                for (int j = 0; j < MatrixSize.Height; j++)
+                {
+                    //Draw Grass
+                    if (grass[i,j].Type == 0)
+                    {
+                        SetSBColor(ColorsGrass.Start);
+                        DrawRectangle(ref pbGrid, new Point(i + 1, j + 1));
+                    }
+                    else if (grass[i, j].Type == 1)
+                    {
+                        SetSBColor(ColorsGrass.Mid);
+                        DrawRectangle(ref pbGrid, new Point(i + 1, j + 1));
+                    }
+                    else if (grass[i, j].Type == 2)
+                    {
+                        SetSBColor(ColorsGrass.End);
+                        DrawRectangle(ref pbGrid, new Point(i + 1, j + 1));
+                    }
+                    //Animal
+                    if (animal[i,j].Type != 0)
+                    {
+                        if (animal[i, j].Type == 1)
+                        {
+                            SetSBColor(ColorsAnimal.Fox);
+                            DrawRectangle(ref pbGrid, new Point(i + 1, j + 1));
+                        }
+                        else if (animal[i, j].Type == 2) 
+                        {
+                            SetSBColor(ColorsAnimal.Bunny);
+                            DrawRectangle(ref pbGrid, new Point(i + 1, j + 1));
+                        }
+                    }
+                }
+            }
+            pbGrid.Image = (Bitmap)bmp;
         }
         public DrawPictureBox(PictureBox pbGrid) //init
         {
