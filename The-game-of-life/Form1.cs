@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,6 +15,7 @@ namespace The_game_of_life
     {
         public DrawPictureBox pb;
         public NextStep ns;
+        public BackgroundWorker bgw = new BackgroundWorker();
         public Form1()
         {
             InitializeComponent();
@@ -26,6 +28,10 @@ namespace The_game_of_life
             btAnimal.BackColor = ColorsAnimal.Fox;
             btGrass.BackColor = ColorsGrass.Start;
             pb.DrawGrid(ref pbGrid);
+            bgw.DoWork += btStart_DoWork;
+            bgw.RunWorkerCompleted += laRun_RunWorkerCompleted;
+            bgw.WorkerReportsProgress = true;
+            bgw.WorkerSupportsCancellation = true;
         }
         #region FormElements
         private void btRun_Click(object sender, EventArgs e)
@@ -40,22 +46,24 @@ namespace The_game_of_life
                 btAnimalOrGrass.Enabled = false;
                 btAnimal.Enabled = false;
                 btGrass.Enabled = false;
+
+                //Button Start: Start
+                bgw.RunWorkerAsync();
             }
             else
             {
-                btRun.BackColor = Color.Green;
-                btRun.Text = "START";
-                btStep.Enabled = true;
-                btReset.Enabled = true;
-                btDraw.Enabled = true;
-                btAnimalOrGrass.Enabled = true;
-                btAnimal.Enabled = true;
-                btGrass.Enabled = true;
+                if (bgw.IsBusy)
+                {
+                    laRun.Text = "Thred is still running please wait.";
+                    btRun.Enabled = false;
+                }
+                //Button Start: End
+                bgw.CancelAsync();
             }
         }
         private void btStep_Click(object sender, EventArgs e)
         {
-            ns.Next();
+            ns.Next(ref pbGrid,ref pb);
         }
 
         private void btReset_Click(object sender, EventArgs e)
@@ -118,6 +126,35 @@ namespace The_game_of_life
         {
             btGrass.BackColor = btGrass.BackColor == ColorsGrass.Mid ? ColorsGrass.End : btGrass.BackColor == ColorsGrass.End ? ColorsGrass.Start : ColorsGrass.Mid;
             btGrass.Text = btGrass.Text == "Zsenge fű" ? "Kifejlett fűcsomó" : btGrass.Text == "Kifejlett fűcsomó" ? "Fűkezdemnény" : "Zsenge fű";
+        }
+        #endregion
+        #region BackgroundWorker (Start button)
+        private void btStart_DoWork(object sender,DoWorkEventArgs e)
+        {
+            while (true)
+            {
+                ns.Next(ref pbGrid, ref pb);
+                pb.DrawMatrix(ref pbGrid,ns.animal,ns.grass);
+                Thread.Sleep(1000);
+                if (bgw.CancellationPending)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
+        }
+        private void laRun_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            laRun.Text = "";
+            btRun.BackColor = Color.Green;
+            btRun.Text = "START";
+            btRun.Enabled = true;
+            btStep.Enabled = true;
+            btReset.Enabled = true;
+            btDraw.Enabled = true;
+            btAnimalOrGrass.Enabled = true;
+            btAnimal.Enabled = true;
+            btGrass.Enabled = true;
         }
         #endregion
         #region DrawPictureBox

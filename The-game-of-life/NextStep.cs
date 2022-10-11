@@ -13,19 +13,23 @@ namespace The_game_of_life
     {
         public Animal[,] animal;
         public Grass[,] grass;
-        public void Next()
+        public void Next(ref PictureBox pbGrid,ref DrawPictureBox pb)
         {
+            //animal[0,0].Type  //
+            //animal[0,0].Hunger//
+            //animal[0,0].Cords //
+            // Igy lehet az iformációkat lekérdezni INDEXEL
+            //grass[0,0].Type   //
+            //grass[0,0].Cords  //
 
-        }
-        public void ContinouosNext()
-        {
-            //while (true)
-            //{
-            //    Thread.Sleep(1000);
-            //    Next();
-            //    if 
-            //}
-            //Task.Delay(1000).ContinueWith(t => Next()); //1 second
+            //animal[0,0] = new Animal(1,10,new Point(1,1)); // igy lehet majd megandi az információt (Type,Hunger = starting hunger,és Pozició)  !!(! A pozició elvan tolva egyel !) A 0,0 Pozició az INVALID !! (Mátrixnál 0,0 valós index)
+            //grass[1,0] = new Grass(1,new Point(2,1)); // (Type,Pozicó) | A tipusokat majd a classok ba lehet látni az enumba
+
+            //animal[0,0] = new Animal(); // igy lehet visza állitani alapokra az infot //PL: ez azért fontos mer 2 mátrixal dolgozunk és ha nyuszi megeszi a füvet. A fü allata visza áll az alapértékre
+            //grass[0,0] = new Grass(); // ugyan ez az állatnál //PL: nyuszi meghal (Hunger == 0) akkor visza áll az alapra
+
+            //a user nek a mátrix kiirása már kész igy azt nem kell megirnotok
+            //A ContinouosNext() már kész !
         }
         public NextStep() //init
         {

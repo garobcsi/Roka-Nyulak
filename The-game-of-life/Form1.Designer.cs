@@ -40,6 +40,7 @@ namespace The_game_of_life
             this.laAnimal = new System.Windows.Forms.Label();
             this.laGrass = new System.Windows.Forms.Label();
             this.laAnimalOrGrass = new System.Windows.Forms.Label();
+            this.laRun = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -166,11 +167,20 @@ namespace The_game_of_life
             this.laAnimalOrGrass.Text = "Select";
             this.laAnimalOrGrass.Visible = false;
             // 
+            // laRun
+            // 
+            this.laRun.Location = new System.Drawing.Point(9, 5);
+            this.laRun.Name = "laRun";
+            this.laRun.Size = new System.Drawing.Size(321, 13);
+            this.laRun.TabIndex = 13;
+            this.laRun.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1279, 676);
+            this.Controls.Add(this.laRun);
             this.Controls.Add(this.laAnimalOrGrass);
             this.Controls.Add(this.laGrass);
             this.Controls.Add(this.laAnimal);
@@ -206,6 +216,7 @@ namespace The_game_of_life
         private System.Windows.Forms.Label laAnimal;
         private System.Windows.Forms.Label laGrass;
         private System.Windows.Forms.Label laAnimalOrGrass;
+        private System.Windows.Forms.Label laRun;
     }
 }
 
