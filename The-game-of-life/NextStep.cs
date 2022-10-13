@@ -13,8 +13,31 @@ namespace The_game_of_life
     {
         public Animal[,] animal;
         public Grass[,] grass;
-        public void Next(ref PictureBox pbGrid,ref DrawPictureBox pb)
+        public int i = 0; // ha példát megnéztétek ezt a sort TÖRÖLNI !
+        public void Next()
         {
+            #region CSAK EGY PÉLDA !
+            try // az elötte lévöt törli
+            {
+                animal[i - 1, 0] = new Animal(); 
+            }
+            catch (Exception)
+            {
+
+                
+            }
+            try
+            {
+                animal[i, 0] = new Animal(1,10,new Point(i+1,1));
+
+            }
+            catch (Exception)
+            {
+
+                throw new IndexOutOfRangeException(); // index határain kivül van !
+            }
+            i++;
+            #endregion
             //animal[0,0].Type  //
             //animal[0,0].Hunger//
             //animal[0,0].Cords //

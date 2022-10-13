@@ -63,7 +63,8 @@ namespace The_game_of_life
         }
         private void btStep_Click(object sender, EventArgs e)
         {
-            ns.Next(ref pbGrid,ref pb);
+            ns.Next();
+            pb.DrawMatrix(ref pbGrid, ns.animal, ns.grass);
         }
 
         private void btReset_Click(object sender, EventArgs e)
@@ -133,7 +134,7 @@ namespace The_game_of_life
         {
             while (true)
             {
-                ns.Next(ref pbGrid, ref pb);
+                ns.Next();
                 pb.DrawMatrix(ref pbGrid,ns.animal,ns.grass);
                 Thread.Sleep(1000);
                 if (bgw.CancellationPending)
