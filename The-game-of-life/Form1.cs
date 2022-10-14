@@ -64,6 +64,9 @@ namespace The_game_of_life
         private void btStep_Click(object sender, EventArgs e)
         {
             ns.Next();
+            laIteration.Invoke((MethodInvoker)delegate {
+                laIteration.Text = $"Iteration: {ns.Iteration:000}";
+            });
             pb.DrawMatrix(ref pbGrid, ns.animal, ns.grass);
         }
 
@@ -134,11 +137,11 @@ namespace The_game_of_life
         {
             while (true)
             {
-                //int kor = int.Parse(label1.Text);
-                //kor++;
-                //Kor(kor);
                 ns.Next();
                 pb.DrawMatrix(ref pbGrid,ns.animal,ns.grass);
+                laIteration.Invoke((MethodInvoker)delegate {
+                    laIteration.Text = $"Iteration: {ns.Iteration:000}";
+                });
                 Thread.Sleep(1000);
                 if (bgw.CancellationPending)
                 {
@@ -147,10 +150,6 @@ namespace The_game_of_life
                 }
             }
         }
-        //private void Kor(int kor)
-        //{
-        //    label1.Text = kor.ToString();
-        //}
         private void laRun_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             laRun.Text = "";
