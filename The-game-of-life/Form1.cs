@@ -194,31 +194,31 @@ namespace The_game_of_life
             {
                 if (btAnimal.Text == "Fox")
                 {
-                    ns.animal[index.X - 1, index.Y - 1] = new Animal(1,10,index);
+                    ns.animal[index.X - 1, index.Y - 1] = new Animal(1, 10);
                     //ns.grass[index.X - 1, index.Y - 1] = new Grass();
                 }
                 else
                 {
-                    ns.animal[index.X - 1, index.Y - 1] = new Animal(2, 5, index);
-                   // ns.grass[index.X - 1, index.Y - 1] = new Grass();
+                    ns.animal[index.X - 1, index.Y - 1] = new Animal(2, 5);
+                    //ns.grass[index.X - 1, index.Y - 1] = new Grass();
                 }
             }
             else // Its Grass
             {
                 if (btGrass.Text == "Fűkezdemnény")
                 {
-                    ns.grass[index.X - 1, index.Y - 1] = new Grass(0, index);
+                    ns.grass[index.X - 1, index.Y - 1] = new Grass(0);
                     //ns.animal[index.X - 1, index.Y - 1] = new Animal();
                 }
                 else if (btGrass.Text == "Zsenge fű")
                 {
-                    ns.grass[index.X - 1, index.Y - 1] = new Grass(1, index);
+                    ns.grass[index.X - 1, index.Y - 1] = new Grass(1);
                     //ns.animal[index.X - 1, index.Y - 1] = new Animal();
                 }
                 else
                 {
-                    ns.grass[index.X - 1, index.Y - 1] = new Grass(2, index);
-                   // ns.animal[index.X - 1, index.Y - 1] = new Animal();
+                    ns.grass[index.X - 1, index.Y - 1] = new Grass(2);
+                    //ns.animal[index.X - 1, index.Y - 1] = new Animal();
                 }
             }
             pbGrid.Invalidate();

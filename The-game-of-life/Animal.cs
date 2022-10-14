@@ -35,7 +35,6 @@ namespace The_game_of_life
                 }
             }
         }
-        public Point Cords { get; set; } = new Point();
         private int hunger = 0;
         public int Hunger
         {
@@ -74,13 +73,11 @@ namespace The_game_of_life
         {
             this.Type = 0;
             this.Hunger = 0;
-            this.Cords = new Point();
         }
-        public Animal (int type,int hunger, Point cords)
+        public Animal (int type,int hunger)
         {
             this.Type = type;
             this.Hunger = hunger;
-            this.Cords = cords;
         }
     }
 }

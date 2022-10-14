@@ -32,16 +32,13 @@ namespace The_game_of_life
                 }
             }
         }
-        public Point Cords { get; set; } = new Point();
         public Grass()
         {
             this.Type = 0;
-            this.Cords = new Point();
         }
-        public Grass (int type, Point cords)
+        public Grass (int type)
         {
             this.Type = type;
-            this.Cords = cords;
         }
     }
 }
