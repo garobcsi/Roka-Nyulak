@@ -9,14 +9,14 @@ namespace The_game_of_life
 {
     public class Grass
     {
-        public enum Types : byte //Tápérték szintje a füveknek
+        public enum Types : int //Tápérték szintje a füveknek
         {
             GrassStart = 0,
             GrassMid = 1,
             GrassEnd = 2
         }
-        private byte type = 0;  
-        public byte Type { 
+        private int type = 0;  
+        public int Type { 
             get {
                 return type;
             }
@@ -38,7 +38,7 @@ namespace The_game_of_life
             this.Type = 0;
             this.Cords = new Point();
         }
-        public Grass (byte type, Point cords)
+        public Grass (int type, Point cords)
         {
             this.Type = type;
             this.Cords = cords;

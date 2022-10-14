@@ -134,6 +134,9 @@ namespace The_game_of_life
         {
             while (true)
             {
+                //int kor = int.Parse(label1.Text);
+                //kor++;
+                //Kor(kor);
                 ns.Next();
                 pb.DrawMatrix(ref pbGrid,ns.animal,ns.grass);
                 Thread.Sleep(1000);
@@ -144,6 +147,10 @@ namespace The_game_of_life
                 }
             }
         }
+        //private void Kor(int kor)
+        //{
+        //    label1.Text = kor.ToString();
+        //}
         private void laRun_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             laRun.Text = "";
@@ -188,12 +195,12 @@ namespace The_game_of_life
                 if (btAnimal.Text == "Fox")
                 {
                     ns.animal[index.X - 1, index.Y - 1] = new Animal(1,10,index);
-                    ns.grass[index.X - 1, index.Y - 1] = new Grass();
+                    //ns.grass[index.X - 1, index.Y - 1] = new Grass();
                 }
                 else
                 {
                     ns.animal[index.X - 1, index.Y - 1] = new Animal(2, 5, index);
-                    ns.grass[index.X - 1, index.Y - 1] = new Grass();
+                   // ns.grass[index.X - 1, index.Y - 1] = new Grass();
                 }
             }
             else // Its Grass
@@ -201,17 +208,17 @@ namespace The_game_of_life
                 if (btGrass.Text == "Fűkezdemnény")
                 {
                     ns.grass[index.X - 1, index.Y - 1] = new Grass(0, index);
-                    ns.animal[index.X - 1, index.Y - 1] = new Animal();
+                    //ns.animal[index.X - 1, index.Y - 1] = new Animal();
                 }
                 else if (btGrass.Text == "Zsenge fű")
                 {
                     ns.grass[index.X - 1, index.Y - 1] = new Grass(1, index);
-                    ns.animal[index.X - 1, index.Y - 1] = new Animal();
+                    //ns.animal[index.X - 1, index.Y - 1] = new Animal();
                 }
                 else
                 {
                     ns.grass[index.X - 1, index.Y - 1] = new Grass(2, index);
-                    ns.animal[index.X - 1, index.Y - 1] = new Animal();
+                   // ns.animal[index.X - 1, index.Y - 1] = new Animal();
                 }
             }
             pbGrid.Invalidate();

@@ -9,14 +9,14 @@ namespace The_game_of_life
 {
     public class Animal
     {
-        public enum Types : byte
+        public enum Types : int
         {
             NoAnimal = 0,
             Fox = 1,
             Bunny = 2
         }
-        private byte type = 0;
-        public byte Type
+        private int type = 0;
+        public int Type
         {
             get
             {
@@ -36,8 +36,8 @@ namespace The_game_of_life
             }
         }
         public Point Cords { get; set; } = new Point();
-        private byte hunger = 0;
-        public byte Hunger
+        private int hunger = 0;
+        public int Hunger
         {
             get
             {
@@ -76,7 +76,7 @@ namespace The_game_of_life
             this.Hunger = 0;
             this.Cords = new Point();
         }
-        public Animal (byte type,byte hunger, Point cords)
+        public Animal (int type,int hunger, Point cords)
         {
             this.Type = type;
             this.Hunger = hunger;
