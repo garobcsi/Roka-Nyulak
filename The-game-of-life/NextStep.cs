@@ -55,6 +55,7 @@ namespace The_game_of_life
             //a user nek a mátrix kiirása már kész igy azt nem kell megirnotok
             //A ContinouosNext() már kész !
             #endregion
+            
             Iteration++;
             Animal[,] animal_temp = animal;
             Grass[,] grass_temp = grass;
