@@ -201,12 +201,14 @@ namespace The_game_of_life
             {
                 if (btAnimal.Text == "Fox")
                 {
-                    ns.animal[index.X - 1, index.Y - 1] = new Animal(1, 10, 1);
+                    ns.animal[index.X - 1, index.Y - 1] = new Animal(1, 10);
+                    ns.animal[index.X - 1, index.Y - 1].itMoved = false;
                     //ns.grass[index.X - 1, index.Y - 1] = new Grass();
                 }
                 else
                 {
-                    ns.animal[index.X - 1, index.Y - 1] = new Animal(2, 5, 1);
+                    ns.animal[index.X - 1, index.Y - 1] = new Animal(2, 5);
+                    ns.animal[index.X - 1, index.Y - 1].itMoved = false;
                     //ns.grass[index.X - 1, index.Y - 1] = new Grass();
                 }
             }

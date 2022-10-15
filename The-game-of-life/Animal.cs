@@ -35,7 +35,6 @@ namespace The_game_of_life
                 }
             }
         }
-        public List<int> Hungers { get; set; } = new List<int>(); // csak akkor ha több van egy helyen
         private int hunger = 0;
         public int Hunger
         {
@@ -70,19 +69,17 @@ namespace The_game_of_life
                 }
             }
         }
-        public int Db { get; set; } = 0; // hany db egy cellán
+        public bool itMoved { get; set; } = false;
         public Animal()
         {
             this.Type = 0;
             this.Hunger = 0;
-            this.Db = 0;
-            Hungers = new List<int>();
+            this.itMoved = false;
         }
-        public Animal (int type,int hunger,int db)
+        public Animal (int type,int hunger)
         {
             this.Type = type;
             this.Hunger = hunger;
-            this.Db = db;
         }
     }
 }
