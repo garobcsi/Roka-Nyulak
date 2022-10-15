@@ -134,6 +134,11 @@ namespace The_game_of_life
             btGrass.BackColor = btGrass.BackColor == ColorsGrass.Mid ? ColorsGrass.End : btGrass.BackColor == ColorsGrass.End ? ColorsGrass.Start : ColorsGrass.Mid;
             btGrass.Text = btGrass.Text == "Zsenge fű" ? "Kifejlett fűcsomó" : btGrass.Text == "Kifejlett fűcsomó" ? "Fűkezdemnény" : "Zsenge fű";
         }
+        public static bool btDebugBool = false;
+        private void btDebug_Click(object sender, EventArgs e)
+        {
+            btDebugBool = btDebugBool ? false : true;
+        }
         #endregion
         #region BackgroundWorker (Start button)
         private void btStart_DoWork(object sender,DoWorkEventArgs e)
@@ -196,13 +201,13 @@ namespace The_game_of_life
             {
                 if (btAnimal.Text == "Fox")
                 {
-                    ns.animal[index.X - 1, index.Y - 1] = new Animal(1, 10);
-                    ns.grass[index.X - 1, index.Y - 1] = new Grass();
+                    ns.animal[index.X - 1, index.Y - 1] = new Animal(1, 10, 1);
+                    //ns.grass[index.X - 1, index.Y - 1] = new Grass();
                 }
                 else
                 {
-                    ns.animal[index.X - 1, index.Y - 1] = new Animal(2, 5);
-                    ns.grass[index.X - 1, index.Y - 1] = new Grass();
+                    ns.animal[index.X - 1, index.Y - 1] = new Animal(2, 5, 1);
+                    //ns.grass[index.X - 1, index.Y - 1] = new Grass();
                 }
             }
             else // Its Grass
@@ -210,17 +215,17 @@ namespace The_game_of_life
                 if (btGrass.Text == "Fűkezdemnény")
                 {
                     ns.grass[index.X - 1, index.Y - 1] = new Grass(0);
-                    ns.animal[index.X - 1, index.Y - 1] = new Animal();
+                    //ns.animal[index.X - 1, index.Y - 1] = new Animal();
                 }
                 else if (btGrass.Text == "Zsenge fű")
                 {
                     ns.grass[index.X - 1, index.Y - 1] = new Grass(1);
-                    ns.animal[index.X - 1, index.Y - 1] = new Animal();
+                    //ns.animal[index.X - 1, index.Y - 1] = new Animal();
                 }
                 else
                 {
                     ns.grass[index.X - 1, index.Y - 1] = new Grass(2);
-                    ns.animal[index.X - 1, index.Y - 1] = new Animal();
+                    //ns.animal[index.X - 1, index.Y - 1] = new Animal();
                 }
             }
             pbGrid.Invalidate();
@@ -230,6 +235,6 @@ namespace The_game_of_life
         {
             _Previous = null;
         }
-        #endregion
+        #endregion      
     }
 }
