@@ -161,7 +161,7 @@ namespace The_game_of_life
 
                             try
                             { 
-                                switch (rnd.Next(1, 8 + 1)) //Irányok: 1=balfel, 2=fel, 3=jobbfel, 4=bal, 5=jobb, 6=balle, 7=le, 8=jobble
+                                switch (rnd.Next(1, 8 + 1)/*random*/) //Irányok: 1=balfel, 2=fel, 3=jobbfel, 4=bal, 5=jobb, 6=balle, 7=le, 8=jobble
                                 {
                                     case 1:
                                         animal_temp[i - 1, j - 1] = new Animal(2, h - 1);
@@ -200,12 +200,98 @@ namespace The_game_of_life
                     //Róka
                     if (animal[i,j].Type==1) 
                     {
+                        //Éhség és halál
                         int h = animal[i, j].Hunger;
-                        animal_temp[i,j] = new Animal(1, h - 1);
+                        //animal_temp[i,j] = new Animal(1, h - 1);
                         if (animal[i,j].Hunger==0)
                         {
                             animal_temp[i, j] = new Animal();
                         }
+
+                        //Mozgás
+                        try
+                        {
+                            switch (rnd.Next(1, 24 + 1)/*random*/) //Irányok: 1=balfel, 2=fel, 3=jobbfel, 4=bal, 5=jobb, 6=balle, 7=le, 8=jobble
+                            {
+                                case 1:
+                                    animal_temp[i - 1, j - 1] = new Animal(1, h - 1);
+                                    break;
+                                case 2:
+                                    animal_temp[i, j - 1] = new Animal(1, h - 1);
+                                    break;
+                                case 3:
+                                    animal_temp[i + 1, j + 1] = new Animal(1, h - 1);
+                                    break;
+                                case 4:
+                                    animal_temp[i - 1, j] = new Animal(1, h - 1);
+                                    break;
+                                case 5:
+                                    animal_temp[i + 1, j] = new Animal(1, h - 1);
+                                    break;
+                                case 6:
+                                    animal_temp[i - 1, j + 1] = new Animal(1, h - 1);
+                                    break;
+                                case 7:
+                                    animal_temp[i, j + 1] = new Animal(1, h - 1);
+                                    break;
+                                case 8:
+                                    animal_temp[i + 1, j + 1] = new Animal(1, h - 1);
+                                    break;
+                                case 9:
+                                    animal_temp[i - 2, j - 2] = new Animal(1, h - 1);
+                                    break;
+                                case 10:
+                                    animal_temp[i - 1, j - 2] = new Animal(1, h - 1);
+                                    break;
+                                case 11:
+                                    animal_temp[i, j - 2] = new Animal(1, h - 1);
+                                    break;
+                                case 12:
+                                    animal_temp[i + 1, j - 2] = new Animal(1, h - 1);
+                                    break;
+                                case 13:
+                                    animal_temp[i + 2, j - 2] = new Animal(1, h - 1);
+                                    break;
+                                case 14:
+                                    animal_temp[i - 2, j - 1] = new Animal(1, h - 1);
+                                    break;
+                                case 15:
+                                    animal_temp[i + 2, j - 1] = new Animal(1, h - 1);
+                                    break;
+                                case 16:
+                                    animal_temp[i - 2, j] = new Animal(1, h - 1);
+                                    break;
+                                case 17:
+                                    animal_temp[i + 2, j] = new Animal(1, h - 1);
+                                    break;
+                                case 18:
+                                    animal_temp[i - 2, j + 1] = new Animal(1, h - 1);
+                                    break;
+                                case 19:
+                                    animal_temp[i + 2, j + 1] = new Animal(1, h - 1);
+                                    break;
+                                case 20:
+                                    animal_temp[i - 2, j + 2] = new Animal(1, h - 1);
+                                    break;
+                                case 21:
+                                    animal_temp[i - 1, j + 2] = new Animal(1, h - 1);
+                                    break;
+                                case 22:
+                                    animal_temp[i, j + 2] = new Animal(1, h - 1);
+                                    break;
+                                case 23:
+                                    animal_temp[i + 1, j + 2] = new Animal(1, h - 1);
+                                    break;
+                                case 24:
+                                    animal_temp[i + 2, j + 2] = new Animal(1, h - 1);
+                                    break;
+                            }
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                        animal_temp[i, j] = new Animal(); //Alapról eltűntetés
                     }
                 }
             }
