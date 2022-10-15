@@ -58,10 +58,12 @@ namespace The_game_of_life
             Iteration++;
             Animal[,] animal_temp = animal;
             Grass[,] grass_temp = grass;
+            Random rnd = new Random(); //Random irány generálása 1-től 8-ig
             for (int i = 0; i < MatrixSize.Width; i++)
             {
                 for (int j = 0; j < MatrixSize.Height; j++)
                 {
+                    
                     //Fűnövekedés
                     if (grass[i,j].Type == 0 && animal[i,j].Type==0)
                     {
@@ -99,11 +101,10 @@ namespace The_game_of_life
                         }
                         else
                         {
-                            Random random = new Random(); //Random irány generálása 1-től 8-ig
-                            int irany = random.Next(1, 8 + 1); //Irányok: 1=balfel, 2=fel, 3=jobbfel, 4=bal, 5=jobb, 6=balle, 7=le, 8=jobble
+                            
                             try
-                            {
-                                switch (irany)
+                            { 
+                                switch (rnd.Next(1, 8 + 1)) //Irányok: 1=balfel, 2=fel, 3=jobbfel, 4=bal, 5=jobb, 6=balle, 7=le, 8=jobble
                                 {
                                     case 1:
                                         animal_temp[i - 1, j - 1] = new Animal(2, h - 1);

@@ -65,7 +65,7 @@ namespace The_game_of_life
         {
             ns.Next();
             laIteration.Invoke((MethodInvoker)delegate {
-                laIteration.Text = $"Iteration: {ns.Iteration:000}";
+                laIteration.Text = $"Iteration: {ns.Iteration:0000}";
             });
             pb.DrawMatrix(ref pbGrid, ns.animal, ns.grass);
         }
@@ -74,6 +74,9 @@ namespace The_game_of_life
         {
             pb.DrawGrid(ref pbGrid);
             ns = new NextStep();
+            laIteration.Invoke((MethodInvoker)delegate {
+                laIteration.Text = $"Iteration: {ns.Iteration:0000}";
+            });
         }
         private bool btDrawState = false;
         private bool[] btDrawKeepState = { true, false };
@@ -140,7 +143,7 @@ namespace The_game_of_life
                 ns.Next();
                 pb.DrawMatrix(ref pbGrid,ns.animal,ns.grass);
                 laIteration.Invoke((MethodInvoker)delegate {
-                    laIteration.Text = $"Iteration: {ns.Iteration:000}";
+                    laIteration.Text = $"Iteration: {ns.Iteration:0000}";
                 });
                 Thread.Sleep(1000);
                 if (bgw.CancellationPending)

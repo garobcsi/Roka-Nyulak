@@ -182,9 +182,9 @@ namespace The_game_of_life
             this.laIteration.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.70909F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.laIteration.Location = new System.Drawing.Point(1106, 9);
             this.laIteration.Name = "laIteration";
-            this.laIteration.Size = new System.Drawing.Size(159, 29);
+            this.laIteration.Size = new System.Drawing.Size(163, 29);
             this.laIteration.TabIndex = 14;
-            this.laIteration.Text = "Iteration: 000";
+            this.laIteration.Text = "Iteration: 0000";
             // 
             // Form1
             // 
