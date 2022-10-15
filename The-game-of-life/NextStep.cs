@@ -63,7 +63,6 @@ namespace The_game_of_life
             {
                 for (int j = 0; j < MatrixSize.Height; j++)
                 {
-                    
                     //Fűnövekedés
                     if (grass[i,j].Type == 0 && animal[i,j].Type==0)
                     {
@@ -75,11 +74,11 @@ namespace The_game_of_life
                     }
 
                     //Nyuszi
-                    if (animal[i,j].Type==2) 
+                    if (animal[i, j].Type==2) 
                     {
                         //Éhség és halál
                         int h = animal[i, j].Hunger;
-                        //animal_temp[i,j] = new Animal(2, h-1);
+                        //animal_temp[i,j] = new Animal(2, h - 1);
                         if (animal[i, j].Hunger == 0)
                         {
                             animal_temp[i, j] = new Animal();
@@ -92,16 +91,74 @@ namespace The_game_of_life
                             grass_temp[i, j] = new Grass(a);
                             if (animal[i, j].Hunger < 4 && grass[i, j].Type == 2)
                             {
-                                animal[i, j].Hunger = animal[i, j].Hunger + 2;
+                                animal_temp[i, j].Hunger = animal_temp[i, j].Hunger + 2;
                             }
                             else if (animal[i, j].Hunger < 5 && grass[i, j].Type == 1)
                             {
-                                animal[i, j].Hunger++;
+                                animal_temp[i, j].Hunger++;
                             }
                         }
+                        //Mozgás
                         else
                         {
-                            
+                            /*int random = 0;
+                            if (animal_temp[i - 1, j - 1].Type != 0)
+                            {
+                                random = rnd.Next(2, 8 + 1);
+                            }
+                            else if (animal_temp[i, j - 1].Type != 0)
+                            {
+                                random = rnd.Next(1, 8 + 1);
+                                if (random == 2)
+                                {
+                                    random++;
+                                }
+                            }
+                            else if (animal_temp[i + 1, j + 1].Type != 0)
+                            {
+                                random = rnd.Next(1, 8 + 1);
+                                if (random == 3)
+                                {
+                                    random++;
+                                }
+                            }
+                            else if (animal_temp[i - 1, j].Type != 0)
+                            {
+                                random = rnd.Next(1, 8 + 1);
+                                if (random == 4)
+                                {
+                                    random++;
+                                }
+                            }
+                            else if (animal_temp[i + 1, j].Type != 0)
+                            {
+                                random = rnd.Next(1, 8 + 1);
+                                if (random == 5)
+                                {
+                                    random++;
+                                }
+                            }
+                            else if (animal_temp[i - 1, j + 1].Type != 0)
+                            {
+                                random = rnd.Next(1, 8 + 1);
+                                if (random == 6)
+                                {
+                                    random++;
+                                }
+                            }
+                            else if (animal_temp[i, j + 1].Type != 0)
+                            {
+                                random = rnd.Next(1, 8 + 1);
+                                if (random == 7)
+                                {
+                                    random++;
+                                }
+                            }
+                            else if (animal_temp[i + 1, j + 1].Type != 0)
+                            {
+                                random = rnd.Next(1, 7 + 1);
+                            }*/
+
                             try
                             { 
                                 switch (rnd.Next(1, 8 + 1)) //Irányok: 1=balfel, 2=fel, 3=jobbfel, 4=bal, 5=jobb, 6=balle, 7=le, 8=jobble
@@ -131,7 +188,6 @@ namespace The_game_of_life
                                         animal_temp[i + 1, j + 1] = new Animal(2, h - 1);
                                         break;
                                 }
-
                             }
                             catch (Exception)
                             {
@@ -145,7 +201,7 @@ namespace The_game_of_life
                     if (animal[i,j].Type==1) 
                     {
                         int h = animal[i, j].Hunger;
-                        animal_temp[i,j] = new Animal(1, h-1);
+                        animal_temp[i,j] = new Animal(1, h - 1);
                         if (animal[i,j].Hunger==0)
                         {
                             animal_temp[i, j] = new Animal();
