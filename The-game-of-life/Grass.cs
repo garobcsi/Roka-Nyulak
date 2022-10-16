@@ -11,9 +11,9 @@ namespace The_game_of_life
     {
         public enum Types : int //Tápérték szintje a füveknek
         {
-            GrassStart = 0,
-            GrassMid = 1,
-            GrassEnd = 2
+            GrassStart = 0, // fűkezdemény
+            GrassMid = 1, // zsenge fű
+            GrassEnd = 2 // kifejlett fűcsomó
         }
         private int type = 0;  
         public int Type { 

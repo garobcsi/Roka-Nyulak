@@ -134,6 +134,12 @@ namespace The_game_of_life
             btGrass.BackColor = btGrass.BackColor == ColorsGrass.Mid ? ColorsGrass.End : btGrass.BackColor == ColorsGrass.End ? ColorsGrass.Start : ColorsGrass.Mid;
             btGrass.Text = btGrass.Text == "Zsenge fű" ? "Kifejlett fűcsomó" : btGrass.Text == "Kifejlett fűcsomó" ? "Fűkezdemnény" : "Zsenge fű";
         }
+        public static bool btDebugBool = false;
+        private void btDebug_Click(object sender, EventArgs e)
+        {
+            btDebugBool = btDebugBool ? false : true;
+            pb.DrawMatrix(ref pbGrid,ns.animal,ns.grass);
+        }
         #endregion
         #region BackgroundWorker (Start button)
         private void btStart_DoWork(object sender,DoWorkEventArgs e)
@@ -171,7 +177,7 @@ namespace The_game_of_life
         private Point? _Previous = null;
         private void pbGrid_MouseDown(object sender, MouseEventArgs e)
         {
-            pb.SetSBColor(btAnimalOrGrass.Text != "Animal"?btAnimal.BackColor:btGrass.BackColor);
+            pb.SetSBColor(btAnimalOrGrass.Text != "Animal" ? btAnimal.BackColor : btGrass.BackColor);
             _Previous = e.Location;
             pbGrid_MouseMove(sender, e);
         }
@@ -189,20 +195,26 @@ namespace The_game_of_life
             {
                 return;
             }
-            //Drawing to PictureBox
-            pb.DrawRectangleWrite(ref pbGrid,index);
             //Adding to matrixes
             if (btAnimalOrGrass.Text != "Animal") // Its Animal
             {
                 if (btAnimal.Text == "Fox")
                 {
                     ns.animal[index.X - 1, index.Y - 1] = new Animal(1, 10);
-                    ns.grass[index.X - 1, index.Y - 1] = new Grass();
+                    ns.animal[index.X - 1, index.Y - 1].itMoved = false;
+                    ns.animal[index.X - 1, index.Y - 1].tudSz = true;
+                    //ns.grass[index.X - 1, index.Y - 1] = new Grass();
+                    
+                    pb.DrawRectangle(ref pbGrid,index,2);
                 }
                 else
                 {
                     ns.animal[index.X - 1, index.Y - 1] = new Animal(2, 5);
-                    ns.grass[index.X - 1, index.Y - 1] = new Grass();
+                    ns.animal[index.X - 1, index.Y - 1].itMoved = false;
+                    ns.animal[index.X - 1, index.Y - 1].tudSz = true;
+                    //ns.grass[index.X - 1, index.Y - 1] = new Grass();
+
+                    pb.DrawRectangle(ref pbGrid, index, 2);
                 }
             }
             else // Its Grass
@@ -210,19 +222,60 @@ namespace The_game_of_life
                 if (btGrass.Text == "Fűkezdemnény")
                 {
                     ns.grass[index.X - 1, index.Y - 1] = new Grass(0);
-                    ns.animal[index.X - 1, index.Y - 1] = new Animal();
+                    //ns.animal[index.X - 1, index.Y - 1] = new Animal();
+
+                    pb.DrawRectangle(ref pbGrid, index, 1);
+                    if (ns.animal[index.X - 1, index.Y - 1].Type == 1)
+                    {
+                        pb.SetSBColor(ColorsAnimal.Fox);
+                        pb.DrawRectangle(ref pbGrid, index, 2);
+                    }
+                    else if (ns.animal[index.X - 1, index.Y - 1].Type == 2)
+                    {
+                        pb.SetSBColor(ColorsAnimal.Bunny);
+                        pb.DrawRectangle(ref pbGrid, index, 2);
+                    }
+                    pb.SetSBColor(btAnimalOrGrass.Text != "Animal" ? btAnimal.BackColor : btGrass.BackColor);
                 }
                 else if (btGrass.Text == "Zsenge fű")
                 {
                     ns.grass[index.X - 1, index.Y - 1] = new Grass(1);
-                    ns.animal[index.X - 1, index.Y - 1] = new Animal();
+                    //ns.animal[index.X - 1, index.Y - 1] = new Animal();
+
+                    pb.DrawRectangle(ref pbGrid, index, 1);
+                    if (ns.animal[index.X - 1, index.Y - 1].Type == 1)
+                    {
+                        pb.SetSBColor(ColorsAnimal.Fox);
+                        pb.DrawRectangle(ref pbGrid, index, 2);
+                    }
+                    else if (ns.animal[index.X - 1, index.Y - 1].Type == 2)
+                    {
+                        pb.SetSBColor(ColorsAnimal.Bunny);
+                        pb.DrawRectangle(ref pbGrid, index, 2);
+                    }
+                    pb.SetSBColor(btAnimalOrGrass.Text != "Animal" ? btAnimal.BackColor : btGrass.BackColor);
                 }
                 else
                 {
                     ns.grass[index.X - 1, index.Y - 1] = new Grass(2);
-                    ns.animal[index.X - 1, index.Y - 1] = new Animal();
+                    //ns.animal[index.X - 1, index.Y - 1] = new Animal();
+
+                    pb.DrawRectangle(ref pbGrid, index, 1);
+                    if (ns.animal[index.X - 1, index.Y - 1].Type == 1)
+                    {
+                        pb.SetSBColor(ColorsAnimal.Fox);
+                        pb.DrawRectangle(ref pbGrid, index, 2);
+                    }
+                    else if (ns.animal[index.X - 1, index.Y - 1].Type == 2)
+                    {
+                        pb.SetSBColor(ColorsAnimal.Bunny);
+                        pb.DrawRectangle(ref pbGrid, index, 2);
+                    }
+                    pb.SetSBColor(btAnimalOrGrass.Text != "Animal" ? btAnimal.BackColor : btGrass.BackColor);
                 }
             }
+            
+
             pbGrid.Invalidate();
             _Previous = e.Location;
         }
@@ -230,6 +283,6 @@ namespace The_game_of_life
         {
             _Previous = null;
         }
-        #endregion
+        #endregion      
     }
 }

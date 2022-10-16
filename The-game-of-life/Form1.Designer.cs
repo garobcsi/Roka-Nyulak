@@ -29,6 +29,7 @@ namespace The_game_of_life
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pbGrid = new System.Windows.Forms.PictureBox();
             this.btRun = new System.Windows.Forms.Button();
             this.btStep = new System.Windows.Forms.Button();
@@ -42,6 +43,7 @@ namespace The_game_of_life
             this.laAnimalOrGrass = new System.Windows.Forms.Label();
             this.laRun = new System.Windows.Forms.Label();
             this.laIteration = new System.Windows.Forms.Label();
+            this.btDebug = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -186,11 +188,22 @@ namespace The_game_of_life
             this.laIteration.TabIndex = 14;
             this.laIteration.Text = "Iteration: 0000";
             // 
+            // btDebug
+            // 
+            this.btDebug.Location = new System.Drawing.Point(517, 56);
+            this.btDebug.Name = "btDebug";
+            this.btDebug.Size = new System.Drawing.Size(75, 23);
+            this.btDebug.TabIndex = 15;
+            this.btDebug.Text = "Debug";
+            this.btDebug.UseVisualStyleBackColor = true;
+            this.btDebug.Click += new System.EventHandler(this.btDebug_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1279, 676);
+            this.Controls.Add(this.btDebug);
             this.Controls.Add(this.laIteration);
             this.Controls.Add(this.laRun);
             this.Controls.Add(this.laAnimalOrGrass);
@@ -205,9 +218,10 @@ namespace The_game_of_life
             this.Controls.Add(this.btRun);
             this.Controls.Add(this.pbGrid);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Nyulak és rókák";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbGrid)).EndInit();
             this.ResumeLayout(false);
@@ -230,6 +244,7 @@ namespace The_game_of_life
         private System.Windows.Forms.Label laAnimalOrGrass;
         private System.Windows.Forms.Label laRun;
         private System.Windows.Forms.Label laIteration;
+        private System.Windows.Forms.Button btDebug;
     }
 }
 
