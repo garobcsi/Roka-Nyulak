@@ -29,16 +29,6 @@ namespace The_game_of_life
             }
             pbGrid.Image = (Bitmap)bmp;
         }
-        public void DrawRectangleWrite(ref PictureBox pbGrid,Point Cords)
-        {
-            int x = Cords.X * 16 - 16;
-            int y = Cords.Y * 16 - 16;
-            if (!(x < 0 || y < 0 || x > pbGrid.Width || y > pbGrid.Height)) // if not outside of canvas
-            {
-                g.FillRectangle(sb, new Rectangle(x,y, 15, 15));
-                pbGrid.Image = (Bitmap)bmp;
-            }
-        }
         public void DrawRectangle(ref PictureBox pbGrid, Point Cords,int a_or_g)
         {
             int x = Cords.X * 16 - 16;
