@@ -29,6 +29,7 @@ namespace The_game_of_life
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pbGrid = new System.Windows.Forms.PictureBox();
             this.btRun = new System.Windows.Forms.Button();
             this.btStep = new System.Windows.Forms.Button();
@@ -217,9 +218,10 @@ namespace The_game_of_life
             this.Controls.Add(this.btRun);
             this.Controls.Add(this.pbGrid);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Nyulak és rókák";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbGrid)).EndInit();
             this.ResumeLayout(false);

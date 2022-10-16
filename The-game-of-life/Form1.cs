@@ -203,18 +203,18 @@ namespace The_game_of_life
                     ns.animal[index.X - 1, index.Y - 1] = new Animal(1, 10);
                     ns.animal[index.X - 1, index.Y - 1].itMoved = false;
                     ns.animal[index.X - 1, index.Y - 1].tudSz = true;
+                    //ns.grass[index.X - 1, index.Y - 1] = new Grass();
                     
                     pb.DrawRectangle(ref pbGrid,index,2);
-                    //ns.grass[index.X - 1, index.Y - 1] = new Grass();
                 }
                 else
                 {
                     ns.animal[index.X - 1, index.Y - 1] = new Animal(2, 5);
                     ns.animal[index.X - 1, index.Y - 1].itMoved = false;
                     ns.animal[index.X - 1, index.Y - 1].tudSz = true;
+                    //ns.grass[index.X - 1, index.Y - 1] = new Grass();
 
                     pb.DrawRectangle(ref pbGrid, index, 2);
-                    //ns.grass[index.X - 1, index.Y - 1] = new Grass();
                 }
             }
             else // Its Grass
