@@ -14,7 +14,8 @@ namespace The_game_of_life
         public int Iteration {get; set;} = 0;
         public Animal[,] animal;
         public Grass[,] grass;
-        public Point[] spacesNy =  {
+        #region nyuszi
+        public Point[] spNy =  {
             new Point(-1, 0),
             new Point(-1, +1),
             new Point(0, +1),
@@ -24,11 +25,28 @@ namespace The_game_of_life
             new Point(0, -1),
             new Point(-1, -1)
         };
-        public Point[] spacesE =  {
-            new Point(),
-        };
         Point movedToNy = new Point(); //where did nyuszi go ?
-        Point movedToR = new Point(); //where did róka go ?
+        #endregion
+        #region róka
+        public Point[] spFoxRange =  {
+            new Point(-2,-2),new Point(-2,-1),new Point(-2,0),new Point(-2,+1),new Point(-2,+2),
+            new Point(-1,-2),new Point(-1,-1),new Point(-1,0),new Point(-1,+1),new Point(-1,+2),
+            new Point(+0,-2),new Point(+0,-1),/*nincs közepe*/new Point(+0,+1),new Point(+0,+2),
+            new Point(+1,-2),new Point(+1,-1),new Point(+1,0),new Point(+1,+1),new Point(+1,+2),
+            new Point(+2,-2),new Point(+2,-1),new Point(+2,0),new Point(+2,+1),new Point(+2,+2),
+        };
+        public Point[] spFoxSRange =  {
+            new Point(-1, 0),
+            new Point(-1, +1),
+            new Point(0, +1),
+            new Point(+1, +1),
+            new Point(+1, 0),
+            new Point(+1, -1),
+            new Point(0, -1),
+            new Point(-1, -1)
+        };
+        Point movedToF = new Point(); //where did róka go ?
+        #endregion
         public void Next()
         {
             Random rnd = new Random();
@@ -48,7 +66,7 @@ namespace The_game_of_life
                     }
                     #endregion
                     #region nyuszi
-                    if (animal[i, j].Type == 2 && animal[i,j].itMoved == false) // Nyuszi és ha nem volt köre
+                    if (animal[i, j].Type == 2 && animal[i, j].itMoved == false) // Nyuszi és ha nem volt köre
                     {
                         #region eat
                         if (grass[i, j].Type != 0) // legkisebnél már nem tud enni
@@ -76,37 +94,37 @@ namespace The_game_of_life
                         List<PointIndex> uresT2 = new List<PointIndex>();
                         List<PointIndex> ny = new List<PointIndex>();
                         List<PointIndex> ny2 = new List<PointIndex>();
-                        for (int e = 0; e < spacesNy.Length; e++)
+                        for (int e = 0; e < spNy.Length; e++)
                         {
                             try
                             {
-                                if (animal[i + spacesNy[e].X, j + spacesNy[e].Y].Type == 0) // üres 
+                                if (animal[i + spNy[e].X, j + spNy[e].Y].Type == 0) // üres 
                                 {
                                     vanU = true;
-                                    uresT2.Add(new PointIndex(spacesNy[e], e));
+                                    uresT2.Add(new PointIndex(spNy[e], e));
                                 }
-                                
+
                             }
                             catch (Exception) { }
                             try
                             {
-                                if (animal[i + spacesNy[e].X, j + spacesNy[e].Y].Type == 2 && animal[i , j ].tudSz)
+                                if (animal[i + spNy[e].X, j + spNy[e].Y].Type == 2 && animal[i, j].tudSz)
                                 {
-                                    ny.Add(new PointIndex(spacesNy[e], e));
+                                    ny.Add(new PointIndex(spNy[e], e));
                                 }
                             }
                             catch (Exception) { }
                         }
                         if (ny.Count == 1)
                         {
-                            Point shift = new Point(i+ny[0].point.X, j + ny[0].point.Y);
-                            for (int e = 0; e < spacesNy.Length; e++)
+                            Point shift = new Point(i + ny[0].point.X, j + ny[0].point.Y);
+                            for (int e = 0; e < spNy.Length; e++)
                             {
                                 try
                                 {
-                                    if (animal[shift.X + spacesNy[e].X, shift.Y + spacesNy[e].Y].Type == 2 && animal[shift.X, shift.Y].tudSz)
+                                    if (animal[shift.X + spNy[e].X, shift.Y + spNy[e].Y].Type == 2 && animal[shift.X, shift.Y].tudSz)
                                     {
-                                        ny2.Add(new PointIndex(spacesNy[e], e));
+                                        ny2.Add(new PointIndex(spNy[e], e));
                                     }
                                 }
                                 catch (Exception) { }
@@ -120,13 +138,77 @@ namespace The_game_of_life
                                 int index = a[rnd.Next(0, a.Count)].index;
                                 try
                                 {
-                                    animal[i + spacesNy[index].X, j + spacesNy[index].Y] = new Animal(2, 5);
-                                    animal[i + spacesNy[index].X, j + spacesNy[index].Y].itMoved = true;
-                                    animal[i + spacesNy[index].X, j + spacesNy[index].Y].tudSz = false;
+                                    animal[i + spNy[index].X, j + spNy[index].Y] = new Animal(2, 5);
+                                    animal[i + spNy[index].X, j + spNy[index].Y].itMoved = true;
+                                    animal[i + spNy[index].X, j + spNy[index].Y].tudSz = false;
                                 }
                                 catch (Exception) { }
                                 animal[i, j].tudSz = false;
                                 animal[i + ny[0].point.X, j + ny[0].point.Y].tudSz = false;
+                            }
+                        }
+                        #endregion
+                    }
+                    #endregion
+                    #region róka
+                    if (animal[i, j].Type == 1 && animal[i, j].itMoved == false) // ha róka
+                    {
+                        #region szaporodás
+                        bool vanU = false;
+                        List<PointIndex> uresT2 = new List<PointIndex>();
+                        List<PointIndex> f = new List<PointIndex>();
+                        List<PointIndex> f2 = new List<PointIndex>();
+                        for (int e = 0; e < spFoxSRange.Length; e++)
+                        {
+                            try
+                            {
+                                if (animal[i + spFoxSRange[e].X, j + spFoxSRange[e].Y].Type == 0) // üres 
+                                {
+                                    vanU = true;
+                                    uresT2.Add(new PointIndex(spFoxSRange[e], e));
+                                }
+
+                            }
+                            catch (Exception) { }
+                            try
+                            {
+                                if (animal[i + spFoxSRange[e].X, j + spFoxSRange[e].Y].Type == 1 && animal[i, j].tudSz)
+                                {
+                                    f.Add(new PointIndex(spFoxSRange[e], e));
+                                }
+                            }
+                            catch (Exception) { }
+                        }
+                        if (f.Count == 1)
+                        {
+                            Point shift = new Point(i + f[0].point.X, j + f[0].point.Y);
+                            for (int e = 0; e < spFoxSRange.Length; e++)
+                            {
+                                try
+                                {
+                                    if (animal[shift.X + spFoxSRange[e].X, shift.Y + spFoxSRange[e].Y].Type == 1 && animal[shift.X, shift.Y].tudSz)
+                                    {
+                                        f2.Add(new PointIndex(spFoxSRange[e], e));
+                                    }
+                                }
+                                catch (Exception) { }
+                            }
+                        }
+                        if (f.Count == 1 && f2.Count == 1) // Szaporodás
+                        {
+                            List<PointIndex> a = uresT2.FindAll(x => x.point != new Point()).ToList();
+                            if (vanU) // van üres trület ? 
+                            {
+                                int index = a[rnd.Next(0, a.Count)].index;
+                                try
+                                {
+                                    animal[i + spFoxSRange[index].X, j + spFoxSRange[index].Y] = new Animal(1, 10);
+                                    animal[i + spFoxSRange[index].X, j + spFoxSRange[index].Y].itMoved = true;
+                                    animal[i + spFoxSRange[index].X, j + spFoxSRange[index].Y].tudSz = false;
+                                }
+                                catch (Exception) { }
+                                animal[i, j].tudSz = false;
+                                animal[i + f[0].point.X, j + f[0].point.Y].tudSz = false;
                             }
                         }
                         #endregion
@@ -142,7 +224,7 @@ namespace The_game_of_life
                 {
                     #region nyuszi
                     if (animal[i, j].Type == 2 && animal[i, j].itMoved == false) // Nyuszi és ha nem volt köre
-                    { 
+                    {
                         #region move
                         movedToNy = new Point(i, j);
                         if (grass[i, j].Type == 0) //ha nincs táplálék a kockán | akkor mozogjon
@@ -150,28 +232,28 @@ namespace The_game_of_life
                             bool vanE = false; // kifejlett fü csomo van e;
                             List<PointIndex> uresT = new List<PointIndex>();
                             List<PointIndex> grassT2 = new List<PointIndex>();
-                            for (int e = 0; e < spacesNy.Length; e++)
+                            for (int e = 0; e < spNy.Length; e++)
                             {
                                 try
                                 {
-                                    if (animal[i + spacesNy[e].X, j + spacesNy[e].Y].Type == 0) // üres 
+                                    if (animal[i + spNy[e].X, j + spNy[e].Y].Type == 0) // üres 
                                     {
-                                        uresT.Add(new PointIndex(spacesNy[e], e));
+                                        uresT.Add(new PointIndex(spNy[e], e));
                                     }
-                                    if (grass[i + spacesNy[e].X, j + spacesNy[e].Y].Type == 2 && animal[i + spacesNy[e].X, j + spacesNy[e].Y].Type == 0)
+                                    if (grass[i + spNy[e].X, j + spNy[e].Y].Type == 2 && animal[i + spNy[e].X, j + spNy[e].Y].Type == 0)
                                     {
                                         vanE = true;
-                                        grassT2.Add(new PointIndex(spacesNy[e], e));
+                                        grassT2.Add(new PointIndex(spNy[e], e));
                                     }
                                 }
                                 catch (Exception) { }
                             }
                             if (vanE) // oda mozognak ahol van jó fű Type: 2
                             {
-                                List < PointIndex > a = grassT2.FindAll(x=>x.point != new Point()).ToList();
+                                List<PointIndex> a = grassT2.FindAll(x => x.point != new Point()).ToList();
                                 int index = a[rnd.Next(0, a.Count)].index;
-                                movedToNy = new Point(i + spacesNy[index].X, j + spacesNy[index].Y);
-                                MoveNy(new Point(i,j),movedToNy);
+                                movedToNy = new Point(i + spNy[index].X, j + spNy[index].Y);
+                                MoveNy(new Point(i, j), movedToNy);
                             }
                             else
                             {
@@ -183,8 +265,8 @@ namespace The_game_of_life
                                 }
                                 catch (Exception)
                                 {
-                                    index = new Point(0,0);
-                                    
+                                    index = new Point(0, 0);
+
                                 }
                                 movedToNy = new Point(i + index.X, j + index.Y);
                                 MoveNy(new Point(i, j), movedToNy);
@@ -196,7 +278,71 @@ namespace The_game_of_life
                         {
                             animal[movedToNy.X, movedToNy.Y] = new Animal();
                         }
-                        animal[movedToNy.X,movedToNy.Y].Hunger--;
+                        animal[movedToNy.X, movedToNy.Y].Hunger--;
+                        #endregion
+                    }
+                    #endregion
+                    #region róka
+                    if (animal[i, j].Type == 1 && animal[i, j].itMoved == false)
+                    {
+                        #region move & eat 
+                        movedToF = new Point(i,j);
+                        bool nyFound = false;
+                        List<PointIndex> findNy = new List<PointIndex>();
+                        List<PointIndex> uresT = new List<PointIndex>();
+                        if (animal[i, j].Hunger <=7) // Ha éhes akkor keres nyulat
+                        {
+                            for (int e = 0; e < spFoxRange.Length; e++)
+                            {
+                                try
+                                {
+                                    if (animal[i + spFoxRange[e].X, j + spFoxRange[e].Y].Type == 2) // található e nyul
+                                    {
+                                        nyFound = true;
+                                        findNy.Add(new PointIndex(spFoxRange[e],e));
+                                    }
+                                }
+                                catch (Exception) { }
+                                try
+                                {
+                                    if (animal[i + spFoxRange[e].X, j + spFoxRange[e].Y].Type == 0)
+                                    {
+                                        uresT.Add(new PointIndex(spFoxRange[e], e));
+                                    }
+                                }
+                                catch (Exception) { }
+                            }
+                            if (nyFound)
+                            {
+                                List<PointIndex> a = findNy.FindAll(x => x.point != new Point()).ToList();
+                                int index = a[rnd.Next(0, a.Count)].index;
+                                movedToF = new Point(i + spFoxRange[index].X, j + spFoxRange[index].Y);
+                                MoveFEat(new Point(i, j), movedToF);
+                            }
+                            else
+                            {
+                                List<PointIndex> a = uresT.FindAll(x => x.point != new Point()).ToList();
+                                Point index = new Point();
+                                try
+                                {
+                                    index = a[rnd.Next(0, a.Count)].point;
+                                }
+                                catch (Exception)
+                                {
+                                    index = new Point(0, 0);
+
+                                }
+                                movedToF = new Point(i + index.X, j + index.Y);
+                                MoveF(new Point(i, j), movedToF);
+                            }
+                        }
+                        #endregion
+                        #region death and hunger--
+                        if (animal[movedToF.X, movedToF.Y].Hunger == 0) //ha 0 akkor meghal
+                        {
+                            animal[movedToF.X, movedToF.Y] = new Animal();
+                        }
+                        animal[movedToF.X, movedToF.Y].Hunger--;
                         #endregion
                     }
                     #endregion
@@ -221,16 +367,28 @@ namespace The_game_of_life
         #region Func for Next()
         private void MoveNy(Point from, Point to)
         {
-            try
+            if (animal[to.X, to.Y].Type == 0)
             {
-                if (animal[to.X, to.Y].Type == 0)
-                {
-                    (animal[from.X, from.Y], animal[to.X, to.Y]) = (animal[to.X, to.Y], animal[from.X, from.Y]);
-                    animal[to.X, to.Y].itMoved = true; // mozgott
-                }
+                (animal[from.X, from.Y], animal[to.X, to.Y]) = (animal[to.X, to.Y], animal[from.X, from.Y]);
+                animal[to.X, to.Y].itMoved = true; // mozgott
             }
-            catch (IndexOutOfRangeException) { animal[from.X, from.Y] = new Animal(); movedToNy = new Point(to.X, to.Y); }
-            catch (Exception) { movedToNy = new Point(to.X,to.Y); }
+        }
+        private void MoveF(Point from, Point to) // akkor ha nem esz.
+        {
+            if (animal[to.X, to.Y].Type == 0)
+            {
+                (animal[from.X, from.Y], animal[to.X, to.Y]) = (animal[to.X, to.Y], animal[from.X, from.Y]);
+                animal[to.X, to.Y].itMoved = true; // mozgott
+            }
+        }
+        private void MoveFEat(Point from, Point to)
+        {
+            if (animal[to.X, to.Y].Type == 2)
+            {
+                (animal[from.X, from.Y], animal[to.X, to.Y]) = (new Animal(), animal[from.X, from.Y]);
+                animal[to.X, to.Y].itMoved = true; // mozgott
+                animal[to.X, to.Y].Hunger += 3;
+            }
         }
         #endregion
         public NextStep() //init
