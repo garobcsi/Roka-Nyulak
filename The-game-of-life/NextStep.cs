@@ -14,7 +14,7 @@ namespace The_game_of_life
         public int Iteration {get; set;} = 0;
         public Animal[,] animal;
         public Grass[,] grass;
-        Point[] spacesNy =  {
+        public Point[] spacesNy =  {
             new Point(-1, 0),
             new Point(-1, +1),
             new Point(0, +1),
@@ -24,14 +24,20 @@ namespace The_game_of_life
             new Point(0, -1),
             new Point(-1, -1)
         };
-        Point movedToNy = new Point();
+        public Point[] spacesE =  {
+            new Point(),
+        };
+        Point movedToNy = new Point(); //where did nyuszi go ?
+        Point movedToR = new Point(); //where did róka go ?
         public void Next()
         {
             Random rnd = new Random();
+            #region grass grow | szaporodás
             for (int i = 0; i < MatrixSize.Width; i++)
             {
                 for (int j = 0; j < MatrixSize.Height; j++)
                 {
+                    #region grass grow
                     if (animal[i,j].Type !=2) // Ha nincs rajta nyul
                     {
                         if (grass[i, j].Type !=2) //Csak max fű ig nő
@@ -40,9 +46,11 @@ namespace The_game_of_life
 
                         }
                     }
-
+                    #endregion
+                    #region nyuszi
                     if (animal[i, j].Type == 2 && animal[i,j].itMoved == false) // Nyuszi és ha nem volt köre
                     {
+                        #region eat
                         if (grass[i, j].Type != 0) // legkisebnél már nem tud enni
                         {
                             if (grass[i, j].Type == 1) // zsenge fű eszik
@@ -62,10 +70,80 @@ namespace The_game_of_life
                                 }
                             }
                         }
-                        //if () // Szaporodás
-                        //{
-
-                        //}
+                        #endregion
+                        #region szaporodás
+                        bool vanU = false;
+                        List<PointIndex> uresT2 = new List<PointIndex>();
+                        List<PointIndex> ny = new List<PointIndex>();
+                        List<PointIndex> ny2 = new List<PointIndex>();
+                        for (int e = 0; e < spacesNy.Length; e++)
+                        {
+                            try
+                            {
+                                if (animal[i + spacesNy[e].X, j + spacesNy[e].Y].Type == 0) // üres 
+                                {
+                                    vanU = true;
+                                    uresT2.Add(new PointIndex(spacesNy[e], e));
+                                }
+                                
+                            }
+                            catch (Exception) { }
+                            try
+                            {
+                                if (animal[i + spacesNy[e].X, j + spacesNy[e].Y].Type == 2 && animal[i , j ].tudSz)
+                                {
+                                    ny.Add(new PointIndex(spacesNy[e], e));
+                                }
+                            }
+                            catch (Exception) { }
+                        }
+                        if (ny.Count == 1)
+                        {
+                            Point shift = new Point(i+ny[0].point.X, j + ny[0].point.Y);
+                            for (int e = 0; e < spacesNy.Length; e++)
+                            {
+                                try
+                                {
+                                    if (animal[shift.X + spacesNy[e].X, shift.Y + spacesNy[e].Y].Type == 2 && animal[shift.X, shift.Y].tudSz)
+                                    {
+                                        ny2.Add(new PointIndex(spacesNy[e], e));
+                                    }
+                                }
+                                catch (Exception) { }
+                            }
+                        }
+                        if (ny.Count == 1 && ny2.Count == 1) // Szaporodás
+                        {
+                            List<PointIndex> a = uresT2.FindAll(x => x.point != new Point()).ToList();
+                            if (vanU) // van üres trület ? 
+                            {
+                                int index = a[rnd.Next(0, a.Count)].index;
+                                try
+                                {
+                                    animal[i + spacesNy[index].X, j + spacesNy[index].Y] = new Animal(2, 5);
+                                    animal[i + spacesNy[index].X, j + spacesNy[index].Y].itMoved = true;
+                                    animal[i + spacesNy[index].X, j + spacesNy[index].Y].tudSz = false;
+                                }
+                                catch (Exception) { }
+                                animal[i, j].tudSz = false;
+                                animal[i + ny[0].point.X, j + ny[0].point.Y].tudSz = false;
+                            }
+                        }
+                        #endregion
+                    }
+                    #endregion
+                }
+            }
+            #endregion
+            #region move | die
+            for (int i = 0; i < MatrixSize.Width; i++)
+            {
+                for (int j = 0; j < MatrixSize.Height; j++)
+                {
+                    #region nyuszi
+                    if (animal[i, j].Type == 2 && animal[i, j].itMoved == false) // Nyuszi és ha nem volt köre
+                    { 
+                        #region move
                         movedToNy = new Point(i, j);
                         if (grass[i, j].Type == 0) //ha nincs táplálék a kockán | akkor mozogjon
                         {
@@ -112,14 +190,20 @@ namespace The_game_of_life
                                 MoveNy(new Point(i, j), movedToNy);
                             }
                         }
+                        #endregion
+                        #region death and hunger--
                         if (animal[movedToNy.X, movedToNy.Y].Hunger == 0) //ha 0 akkor meghal
                         {
                             animal[movedToNy.X, movedToNy.Y] = new Animal();
                         }
                         animal[movedToNy.X,movedToNy.Y].Hunger--;
+                        #endregion
                     }
+                    #endregion
                 }
             }
+            #endregion
+            #region set to default
             for (int i = 0; i < MatrixSize.Width; i++)
             {
                 for (int j = 0; j < MatrixSize.Height; j++)
@@ -127,11 +211,14 @@ namespace The_game_of_life
                     if (animal[i, j].Type !=0) // ha állat | azért a animal mer ugyan az a cellára ne tudjanak mozogni
                     {
                         animal[i, j].itMoved = false; // a kör végén mindnkinek visza áll.
+                        animal[i, j].tudSz = true;
                     }
                 }
             }
+            #endregion
             Iteration++;
         }
+        #region Func for Next()
         private void MoveNy(Point from, Point to)
         {
             try
@@ -145,20 +232,7 @@ namespace The_game_of_life
             catch (IndexOutOfRangeException) { animal[from.X, from.Y] = new Animal(); movedToNy = new Point(to.X, to.Y); }
             catch (Exception) { movedToNy = new Point(to.X,to.Y); }
         }
-        //private bool CanItMove(Point from, Point to)
-        //{
-        //    var a = animal;
-        //    try
-        //    {
-        //        if (a[to.X, to.Y].Type == 0)
-        //        {
-        //            (a[from.X, from.Y], a[to.X, to.Y]) = (a[to.X, to.Y], a[from.X, from.Y]);
-        //            return true;
-        //        }
-        //    }
-        //    catch (IndexOutOfRangeException) { return true; }
-        //    return false;
-        //}
+        #endregion
         public NextStep() //init
         {
             animal = new Animal[MatrixSize.Width, MatrixSize.Height];

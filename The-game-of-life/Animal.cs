@@ -70,11 +70,13 @@ namespace The_game_of_life
             }
         }
         public bool itMoved { get; set; } = false;
+        public bool tudSz { get; set; } = true;
         public Animal()
         {
             this.Type = 0;
             this.Hunger = 0;
             this.itMoved = false;
+            this.tudSz = false;
         }
         public Animal (int type,int hunger)
         {
